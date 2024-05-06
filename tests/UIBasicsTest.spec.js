@@ -40,8 +40,16 @@ test.only("UI Controls", async ({ page }) => {
   const signIn = page.getByRole("button", { name: "Sign In" });
   const dropdown = page.locator("select.form-control");
   await dropdown.selectOption("consult");
-  await page.locator(".radiotextsty").last().click();
+  const userType = page.locator(".radiotextsty").last();
+  const terms = page.locator("#terms");
+  await userType.click();
   await page.locator("#okayBtn").click();
+  console.log(await userType.isChecked());
+  await expect(userType).toBeChecked();
+  await terms.click();
+  await expect(terms).toBeChecked();
+  await terms.uncheck();
+  await expect(terms).toBeChecked({ checked: false });
 
-  await page.pause();
+  // await page.pause();
 });
