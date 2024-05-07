@@ -38,6 +38,7 @@ test.only("UI Controls", async ({ page }) => {
   await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
   const userName = page.getByLabel("Username:");
   const signIn = page.getByRole("button", { name: "Sign In" });
+  const documentLink = page.locator("[href*='documents-request']");
   const dropdown = page.locator("select.form-control");
   await dropdown.selectOption("consult");
   const userType = page.locator(".radiotextsty").last();
@@ -50,6 +51,7 @@ test.only("UI Controls", async ({ page }) => {
   await expect(terms).toBeChecked();
   await terms.uncheck();
   await expect(terms).toBeChecked({ checked: false });
+  await expect(documentLink).toHaveAttribute("class", "blinkingText");
 
   // await page.pause();
 });
