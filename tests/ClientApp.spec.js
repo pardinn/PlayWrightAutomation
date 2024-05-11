@@ -15,7 +15,6 @@ test.only("Client App login", async ({ page }) => {
   console.log(titles);
   const count = await products.count();
   for (let i = 0; i < count; i++) {
-    await page.pause();
     if ((await products.nth(i).locator("b").textContent()) === productName) {
       await products
         .nth(1)
@@ -24,4 +23,12 @@ test.only("Client App login", async ({ page }) => {
       break;
     }
   }
+
+  await page.locator("[routerlink*='cart']").click();
+
+  await page.locator("div li").first().waitFor();
+  const isVisible = await page
+    .locator(`h3:has-text('${productName}')`)
+    .isVisible();
+  expect(isVisible).toBeTruthy();
 });
