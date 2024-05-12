@@ -55,6 +55,12 @@ test.only("Client App login", async ({ page }) => {
   await expect(page.locator(".user__name [type='text']").first()).toHaveText(email);
   await page.getByText("Place Order").click();
   await expect(page.locator(".hero-primary")).toHaveText("Thankyou for the order.");
-  const orderId = await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
+  let orderId = await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
+  orderId = orderId.split("|")[1].trim();
   console.log(orderId);
+
+  // Homework: Navigate to the Orders tab, find the order and click on View
+  await page.getByRole("button", { name: "Orders" }).click();
+  await page.locator("tr").filter({ hasText: orderId }).getByRole("button", { name: "View" }).click();
+  await expect(page.getByText(`Order Id${orderId}`)).toBeVisible();
 });
