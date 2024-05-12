@@ -8,4 +8,9 @@ test("Popup validations", async ({ page }) => {
   await expect(page.getByPlaceholder("Hide/Show Example")).toBeVisible();
   await page.getByRole("button", { name: "Hide" }).click();
   await expect(page.getByPlaceholder("Hide/Show Example")).toBeHidden();
+
+  await page.pause();
+  page.on("dialog", (dialog) => dialog.accept());
+  await page.getByRole("button", { name: "Confirm" }).click();
+  await page.locator("#mousehover").hover();
 });
