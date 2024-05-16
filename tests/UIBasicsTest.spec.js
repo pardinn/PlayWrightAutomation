@@ -7,9 +7,13 @@ test("Browser Context Playwright test", async ({ browser }) => {
    **/
   const context = await browser.newContext();
   const page = await context.newPage();
+  //aborting calls demonstration
+  page.route("**/*.{jpg,png,jpeg}", (route) => route.abort());
   const userName = page.getByLabel("Username:");
   const signIn = page.getByRole("button", { name: "Sign In" });
   const cardTitles = page.locator(".card-body a");
+  page.on("request", (request) => console.log("request: ", request.url()));
+  page.on("response", (response) => console.log("response: ", response.url(), response.status()));
   await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
   console.log(await page.title());
 
@@ -66,10 +70,7 @@ test("Child windows handling", async ({ browser }) => {
    * A Promise can have 3 states: pending, rejected, fulfilled.
    * Promise.all waits until all events are fulfilled.
    */
-  const [newPage] = await Promise.all([
-    context.waitForEvent("page"),
-    documentLink.click(),
-  ]);
+  const [newPage] = await Promise.all([context.waitForEvent("page"), documentLink.click()]);
 
   const text = await newPage.locator(".red").textContent();
   const arrayText = text.split("@");
