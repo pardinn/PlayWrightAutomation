@@ -18,3 +18,12 @@ test("Popup validations", async ({ page }) => {
   const textCheck = await framesPage.getByRole("heading", { name: "Happy Subscibers" }).textContent();
   console.log(textCheck.split(" ")[1]);
 });
+
+test.only("Screenshot & Visual comparison", async ({ page }) => {
+  await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
+  await expect(page.getByPlaceholder("Hide/Show Example")).toBeVisible();
+  await page.getByPlaceholder("Hide/Show Example").screenshot({ path: "test-results/elementScreenshot.png" });
+  await page.getByRole("button", { name: "Hide" }).click();
+  await page.screenshot({ path: "test-results/screenshot.png", fullPage: true });
+  await expect(page.getByPlaceholder("Hide/Show Example")).toBeHidden();
+});
