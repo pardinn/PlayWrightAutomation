@@ -19,11 +19,16 @@ test("Popup validations", async ({ page }) => {
   console.log(textCheck.split(" ")[1]);
 });
 
-test.only("Screenshot & Visual comparison", async ({ page }) => {
+test("Screenshot & Visual comparison", async ({ page }) => {
   await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
   await expect(page.getByPlaceholder("Hide/Show Example")).toBeVisible();
   await page.getByPlaceholder("Hide/Show Example").screenshot({ path: "test-results/elementScreenshot.png" });
   await page.getByRole("button", { name: "Hide" }).click();
   await page.screenshot({ path: "test-results/screenshot.png", fullPage: true });
   await expect(page.getByPlaceholder("Hide/Show Example")).toBeHidden();
+});
+
+test("Visual testing", async ({ page }) => {
+  await page.goto("https://google.com/");
+  expect(await page.screenshot()).toMatchSnapshot("landing.png");
 });
