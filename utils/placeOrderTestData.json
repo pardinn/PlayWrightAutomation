@@ -1,14 +1,30 @@
-{
-  "username": "anshika@gmail.com",
-  "password": "Iamking@000",
-  "productName": "ADIDAS ORIGINAL",
-  "paymentInfo": {
-    "cardNumber": "1234 5678 9012 3456",
-    "expiryMonth": "10",
-    "expiryYear": "24",
-    "cvvCode": "123",
-    "cardHolder": "Pardinn Hullkkan",
-    "couponCode": "FEELINGLUCKY"
+[
+  {
+    "username": "anshika@gmail.com",
+    "password": "Iamking@000",
+    "productName": "ADIDAS ORIGINAL",
+    "paymentInfo": {
+      "cardNumber": "1234 5678 9012 3456",
+      "expiryMonth": "10",
+      "expiryYear": "24",
+      "cvvCode": "123",
+      "cardHolder": "Pardinn Hullkkan",
+      "couponCode": "FEELINGLUCKY"
+    },
+    "country": "India"
   },
-  "country": "India"
-}
+  {
+    "username": "rahulshetty@gmail.com",
+    "password": "Iamking@000",
+    "productName": "ZARA COAT 3",
+    "paymentInfo": {
+      "cardNumber": "1234 5678 9012 3456",
+      "expiryMonth": "10",
+      "expiryYear": "24",
+      "cvvCode": "123",
+      "cardHolder": "Pardinn Hullkkan",
+      "couponCode": "FEELINGLUCKY"
+    },
+    "country": "India"
+  }
+]
