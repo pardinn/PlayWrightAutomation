@@ -36,5 +36,5 @@ test("Client App login", async ({ page }) => {
   await dashboardPage.navigateToOrders();
 
   await ordersHistoryPage.viewOrder(orderId);
-  expect(await ordersHistoryPage.getOrderId()).toEqual(orderId);
+  expect(await ordersHistoryPage.getOrderId()).toContainText(orderId);
 });

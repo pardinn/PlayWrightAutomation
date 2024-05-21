@@ -1,17 +1,13 @@
 export class OrdersHistoryPage {
   constructor(page) {
     this.page = page;
-    this.ordersHistory = page.locator("tr");
-    this.orderId = page.getByText("Order Id");
+    this.ordersHistory = this.page.locator("tr");
+    this.orderId = this.page.getByText(/Order Id./);
   }
 
   async viewOrder(orderId) {
     const order = await this.findOrderById(orderId);
-    await this.getViewButton(order).click();
-  }
-
-  async getViewButton(order) {
-    return await order.getByRole("button", { name: "View" });
+    await order.getByRole("button", { name: "View" }).click();
   }
 
   async findOrderById(orderId) {
@@ -19,6 +15,7 @@ export class OrdersHistoryPage {
   }
 
   async getOrderId() {
-    return await this.orderId.locator(".col-text").TextContent();
+    await this.page.getByText("Order Summary").waitFor();
+    return await this.orderId;
   }
 }
