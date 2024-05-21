@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { test as customtest } from "../utils/base-test";
 import { POManager } from "../pageobjects/POManager";
 const dataset = JSON.parse(JSON.stringify(require("../utils/placeOrderTestData.json")));
 
@@ -29,3 +30,17 @@ for (const data of dataset) {
     expect(await ordersHistoryPage.getOrderId()).toContainText(orderId);
   });
 }
+
+customtest("Custom Client App login", async ({ page, testDataForOrder }) => {
+  const pom = new POManager(page);
+  const loginPage = pom.getLoginPage();
+  const dashboardPage = pom.getDashboardPage();
+  const cartPage = pom.getCartPage();
+
+  await loginPage.goTo();
+  await loginPage.validLogin(testDataForOrder.username, testDataForOrder.password);
+  await dashboardPage.addProductToCart(testDataForOrder.productName);
+  await dashboardPage.navigateToCart();
+  await cartPage.validateProductAddedToCart(testDataForOrder.productName);
+  await cartPage.checkout();
+});
