@@ -3,8 +3,8 @@ import { expect } from "@playwright/test";
 export class CartPage {
   constructor(page) {
     this.page = page;
-    this.cartList = page.locator("div li");
-    this.checkoutButton = page.getByRole("button", { name: "Checkout" });
+    this.cartList = this.page.locator("div li");
+    this.checkoutButton = this.page.getByRole("button", { name: "Checkout" });
   }
 
   async validateProductAddedToCart(productName) {

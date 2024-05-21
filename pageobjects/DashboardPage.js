@@ -1,9 +1,10 @@
 export class DashboardPage {
   constructor(page) {
-    this.products = page.locator(".card-body");
-    this.productsText = page.locator(".card-body b");
-    this.cart = page.locator("[routerlink*='cart']");
-    this.orders = page.getByRole("button", { name: "Orders" });
+    this.page = page;
+    this.products = this.page.locator(".card-body");
+    this.productsText = this.page.locator(".card-body b");
+    this.cart = this.page.locator("[routerlink*='cart']");
+    this.orders = this.page.getByRole("button", { name: "Orders" });
   }
 
   async addProductToCart(productName) {
@@ -13,7 +14,7 @@ export class DashboardPage {
     const count = await this.products.count();
     for (let i = 0; i < count; i++) {
       if ((await this.products.nth(i).locator("b").textContent()) === productName) {
-        await this.products.nth(1).getByRole("Button", { name: "Add To Cart" }).click();
+        await this.products.nth(i).getByRole("Button", { name: "Add To Cart" }).click();
         break;
       }
     }

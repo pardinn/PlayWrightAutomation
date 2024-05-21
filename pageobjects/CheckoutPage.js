@@ -3,20 +3,20 @@ import { expect } from "@playwright/test";
 export class CheckoutPage {
   constructor(page) {
     this.page = page;
-    this.cardNumber = page.locator('input[type="text"]').first();
-    this.expiryMonth = page.getByRole("combobox").first();
-    this.expiryYear = page.getByRole("combobox").nth(1);
-    this.cvvCode = page.locator(".field").filter({ hasText: "CVV Code" }).getByRole("textbox");
-    this.cardHolder = page.locator(".field").filter({ hasText: "Name on Card" }).getByRole("textbox");
-    this.couponCode = page.locator(".field").filter({ hasText: "Apply Coupon" }).getByRole("textbox");
-    this.applyCoupon = page.getByRole("button", { name: "Apply Coupon" });
-    this.invalidCouponText = page.getByText("* Invalid Coupon");
-    this.countrySelector = page.getByPlaceholder("Select Country");
-    this.dropdown = page.locator(".ta-results");
-    this.username = page.locator(".user__name [type='text']").first();
-    this.placeOrderButton = page.getByText("Place Order");
-    this.thankYouMessage = page.locator(".hero-primary");
-    this.orderId = page.locator(".em-spacer-1 .ng-star-inserted");
+    this.cardNumber = this.page.locator('input[type="text"]').first();
+    this.expiryMonth = this.page.getByRole("combobox").first();
+    this.expiryYear = this.page.getByRole("combobox").nth(1);
+    this.cvvCode = this.page.locator(".field").filter({ hasText: "CVV Code" }).getByRole("textbox");
+    this.cardHolder = this.page.locator(".field").filter({ hasText: "Name on Card" }).getByRole("textbox");
+    this.couponCode = this.page.locator(".field").filter({ hasText: "Apply Coupon" }).getByRole("textbox");
+    this.applyCoupon = this.page.getByRole("button", { name: "Apply Coupon" });
+    this.invalidCouponText = this.page.getByText("* Invalid Coupon");
+    this.countrySelector = this.page.getByPlaceholder("Select Country");
+    this.dropdown = this.page.locator(".ta-results");
+    this.username = this.page.locator(".user__name [type='text']").first();
+    this.placeOrderButton = this.page.getByText("Place Order");
+    this.thankYouMessage = this.page.locator(".hero-primary");
+    this.orderId = this.page.locator(".em-spacer-1 .ng-star-inserted");
   }
 
   async fillCardInfo(paymentInfo) {
