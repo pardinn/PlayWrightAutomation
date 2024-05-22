@@ -1,5 +1,8 @@
 import { test, expect } from "@playwright/test";
 
+/// test.describe.configure({mode: 'parallel'}) -- specific to this file
+test.describe.configure({ mode: "serial" }); // interdependent mode. Will skip the next tests if a test fails
+
 test("Popup validations", async ({ page }) => {
   await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
   // await page.goto("https://google.com/");
