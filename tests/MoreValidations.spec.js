@@ -22,7 +22,7 @@ test("Popup validations", async ({ page }) => {
   console.log(textCheck.split(" ")[1]);
 });
 
-test("Screenshot & Visual comparison", async ({ page }) => {
+test("@Web Screenshot & Visual comparison", async ({ page }) => {
   await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
   await expect(page.getByPlaceholder("Hide/Show Example")).toBeVisible();
   await page.getByPlaceholder("Hide/Show Example").screenshot({ path: "test-results/elementScreenshot.png" });

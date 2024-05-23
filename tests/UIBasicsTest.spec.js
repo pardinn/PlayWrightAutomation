@@ -31,14 +31,14 @@ test("Browser Context Playwright test", async ({ browser }) => {
   console.log(await allTitles);
 });
 
-test("Page Playwright test", async ({ page }) => {
+test("@Web Page Playwright test", async ({ page }) => {
   // Same as above, but leveraging the default settings from Playwright
   await page.goto("https://google.com");
   console.log(await page.title());
   await expect(page).toHaveTitle("Google");
 });
 
-test("UI Controls", async ({ page }) => {
+test("@Web UI Controls", async ({ page }) => {
   await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
   const userName = page.getByLabel("Username:");
   const signIn = page.getByRole("button", { name: "Sign In" });

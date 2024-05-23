@@ -4,7 +4,7 @@ import { POManager } from "../pageobjects/POManager";
 const dataset = JSON.parse(JSON.stringify(require("../utils/placeOrderTestData.json")));
 
 for (const data of dataset) {
-  test(`Client App login - ${data.productName}`, async ({ page }) => {
+  test(`@Web Client App login - ${data.productName}`, async ({ page }) => {
     const pom = new POManager(page);
     const loginPage = pom.getLoginPage();
     const dashboardPage = pom.getDashboardPage();
