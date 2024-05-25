@@ -20,7 +20,7 @@ test.beforeAll(async ({ browser }) => {
   webContext = await browser.newContext({ storageState: authPath });
 });
 
-test("Client App login", async () => {
+test("@API Client App login", async () => {
   const page = await webContext.newPage();
 
   const productName = "ADIDAS ORIGINAL";
@@ -80,7 +80,7 @@ test("Client App login", async () => {
   await expect(page.getByText(`Order Id${orderId}`)).toBeVisible();
 });
 
-test("Test Case 2", async () => {
+test("@API Test Case 2", async () => {
   const page = await webContext.newPage();
   await page.goto("https://rahulshettyacademy.com/client");
   const titles = await page.locator(".card-body b").allTextContents();
