@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test("Browser Context Playwright test", async ({ browser }) => {
+test("@Web Browser Context Playwright test", async ({ browser }) => {
   /**
    *  Use this when you have cookies, plugins or other settings that you want to pass to the context,
    *  otherwise, call the page directly.
@@ -38,7 +38,7 @@ test("@Web Page Playwright test", async ({ page }) => {
   await expect(page).toHaveTitle("Google");
 });
 
-test("@Web UI Controls", async ({ page }) => {
+test("UI Controls", async ({ page }) => {
   await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
   const userName = page.getByLabel("Username:");
   const signIn = page.getByRole("button", { name: "Sign In" });
