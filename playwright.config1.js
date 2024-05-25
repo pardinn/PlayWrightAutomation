@@ -19,7 +19,7 @@ module.exports = defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 4 : undefined,
+  workers: process.env.CI ? 1 : undefined,
 
   timeout: 30 * 1000,
   expect: {
@@ -39,8 +39,12 @@ module.exports = defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: "chromium",
-      use: { ...devices["Desktop Chrome"], trace: "on" },
+      name: "safari",
+      use: { browserName: "webkit", ...devices["iPhone 11"], trace: "on" },
+    },
+    {
+      name: "chrome",
+      use: { ...devices["Desktop Chrome"], screenshot: "on", trace: "on", channel: "chrome" },
     },
 
     // {
@@ -67,10 +71,6 @@ module.exports = defineConfig({
     // {
     //   name: 'Microsoft Edge',
     //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
   ],
 
