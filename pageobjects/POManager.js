@@ -1,8 +1,8 @@
-import { LoginPage } from "./LoginPage";
-import { DashboardPage } from "./DashboardPage";
-import { CartPage } from "./CartPage";
-import { CheckoutPage } from "./CheckoutPage";
-import { OrdersHistoryPage } from "./OrdersHistoryPage";
+import { LoginPage } from "./LoginPage.js";
+import { DashboardPage } from "./DashboardPage.js";
+import { CartPage } from "./CartPage.js";
+import { CheckoutPage } from "./CheckoutPage.js";
+import { OrdersHistoryPage } from "./OrdersHistoryPage.js";
 
 export class POManager {
   constructor(page) {

@@ -2,6 +2,7 @@
   "name": "playwrightautomation",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "regression": "npx playwright test",
@@ -13,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@cucumber/cucumber": "^10.8.0",
     "@playwright/test": "^1.44.1",
     "@types/node": "^20.12.12",
     "allure-commandline": "^2.29.0",
