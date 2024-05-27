@@ -19,6 +19,7 @@
     "@types/node": "^20.12.12",
     "allure-commandline": "^2.29.0",
     "allure-playwright": "^2.15.1",
-    "exceljs": "^4.4.0"
+    "exceljs": "^4.4.0",
+    "prettier-plugin-gherkin": "^2.2.1"
   }
 }
