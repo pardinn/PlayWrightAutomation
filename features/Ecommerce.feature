@@ -7,3 +7,13 @@ Feature: Ecommerce validations
     Then I should see "ADIDAS ORIGINAL" displayed in the Cart
     When I enter valid details and Place the Order
     Then I verify the order is present in the OrderHistory
+
+  @Validation @bar
+  Scenario Outline: Placing the Order
+    Given I log into the Ecommerce2 application with "<username>" and "<password>"
+    Then I should see an error message displayed
+
+    Examples:
+      | username          | password    |
+      | rahulshetty       | learning    |
+      | anshika@gmail.com | Iamking@000 |
