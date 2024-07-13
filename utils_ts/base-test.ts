@@ -1,6 +1,21 @@
 import { test as base } from "@playwright/test";
 
-const test = base.extend({
+interface TestDataForOrder {
+  username: string;
+  password: string;
+  productName: string;
+  paymentInfo: {
+    cardNumber: string;
+    expiryMonth: string;
+    expiryYear: string;
+    cvvCode: string;
+    cardHolder: string;
+    couponCode: string;
+  };
+  country: string;
+}
+
+export const test = base.extend<{ testDataForOrder: TestDataForOrder }>({
   testDataForOrder: {
     username: "gqwewhdonyuqovmqud@ytnhy.com",
     password: "Iamking@000",
@@ -16,5 +31,3 @@ const test = base.extend({
     country: "India",
   },
 });
-
-export { test };

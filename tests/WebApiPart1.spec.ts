@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import APIUtils from "../utils/APIUtils";
+import { APIUtils } from "../utils_ts/APIUtils";
 const loginPayload = {
   userEmail: "gqwewhdonyuqovmqud@ytnhy.com",
   userPassword: "Iamking@000",
@@ -7,7 +7,7 @@ const loginPayload = {
 const orderPayload = {
   orders: [{ country: "Brazil", productOrderedId: "6581ca979fd99c85e8ee7faf" }],
 };
-let response;
+let response: { token: string; orderId: string };
 
 test.beforeAll(async ({ request }) => {
   const apiUtils = new APIUtils(request, loginPayload);
@@ -16,7 +16,6 @@ test.beforeAll(async ({ request }) => {
 
 test("@API Client App login", async ({ page }) => {
   await page.addInitScript((value) => {
-    // eslint-disable-next-line no-undef
     window.localStorage.setItem("token", value);
   }, response.token);
   await page.goto("https://rahulshettyacademy.com/client");

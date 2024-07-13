@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { test as customtest } from "../utils/base-test";
-import { POManager } from "../pageobjects/POManager";
+import { test as customtest } from "../utils_ts/base-test";
+import { POManager } from "../pageobjects_ts/POManager";
 import fs from "fs";
 const testData = fs.readFileSync("./utils/placeOrderTestData.json", "utf8");
 const dataset = JSON.parse(testData);
@@ -22,7 +22,7 @@ for (const data of dataset) {
     await cartPage.checkout();
 
     // Homework. Fill out the Credit Card information
-    const orderId = await checkoutPage.placeOrder(
+    const orderId: string = await checkoutPage.placeOrder(
       data.paymentInfo,
       data.country,
       data.username,
