@@ -13,7 +13,9 @@ test("@Web Browser Context Playwright test", async ({ browser }) => {
   const signIn = page.getByRole("button", { name: "Sign In" });
   const cardTitles = page.locator(".card-body a");
   page.on("request", (request) => console.log("request: ", request.url()));
-  page.on("response", (response) => console.log("response: ", response.url(), response.status()));
+  page.on("response", (response) =>
+    console.log("response: ", response.url(), response.status()),
+  );
   await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
   console.log(await page.title());
 
@@ -40,8 +42,8 @@ test("@Web Page Playwright test", async ({ page }) => {
 
 test("UI Controls", async ({ page }) => {
   await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
-  const userName = page.getByLabel("Username:");
-  const signIn = page.getByRole("button", { name: "Sign In" });
+  // const userName = page.getByLabel("Username:");
+  // const signIn = page.getByRole("button", { name: "Sign In" });
   const documentLink = page.locator("[href*='documents-request']");
   const dropdown = page.locator("select.form-control");
   await dropdown.selectOption("consult");
@@ -70,7 +72,10 @@ test("Child windows handling", async ({ browser }) => {
    * A Promise can have 3 states: pending, rejected, fulfilled.
    * Promise.all waits until all events are fulfilled.
    */
-  const [newPage] = await Promise.all([context.waitForEvent("page"), documentLink.click()]);
+  const [newPage] = await Promise.all([
+    context.waitForEvent("page"),
+    documentLink.click(),
+  ]);
 
   const text = await newPage.locator(".red").textContent();
   const arrayText = text.split("@");

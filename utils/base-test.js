@@ -1,8 +1,8 @@
 import { test as base } from "@playwright/test";
 
-exports.test = base.test.extend({
+const test = base.extend({
   testDataForOrder: {
-    username: "anshika@gmail.com",
+    username: "gqwewhdonyuqovmqud@ytnhy.com",
     password: "Iamking@000",
     productName: "ADIDAS ORIGINAL",
     paymentInfo: {
@@ -16,3 +16,5 @@ exports.test = base.test.extend({
     country: "India",
   },
 });
+
+export { test };

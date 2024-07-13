@@ -17,7 +17,7 @@ interface TestDataForOrder {
 
 export const test = base.extend<{ testDataForOrder: TestDataForOrder }>({
   testDataForOrder: {
-    username: "anshika@gmail.com",
+    username: "gqwewhdonyuqovmqud@ytnhy.com",
     password: "Iamking@000",
     productName: "ADIDAS ORIGINAL",
     paymentInfo: {

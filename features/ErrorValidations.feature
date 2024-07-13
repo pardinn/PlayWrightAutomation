@@ -6,6 +6,6 @@ Feature: Ecommerce validations
     Then I should see an error message displayed
 
     Examples:
-      | username          | password    |
-      | rahulshetty       | learning    |
-      | anshika@gmail.com | Iamking@000 |
+      | username                     | password    |
+      | rahulshetty                  | learning    |
+      | gqwewhdonyuqovmqud@ytnhy.com | Iamking@000 |

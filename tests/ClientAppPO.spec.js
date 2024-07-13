@@ -1,7 +1,9 @@
 import { test, expect } from "@playwright/test";
 import { test as customtest } from "../utils/base-test";
 import { POManager } from "../pageobjects/POManager";
-const dataset = JSON.parse(JSON.stringify(require("../utils/placeOrderTestData.json")));
+import fs from "fs";
+const testData = fs.readFileSync("./utils/placeOrderTestData.json", "utf8");
+const dataset = JSON.parse(testData);
 
 for (const data of dataset) {
   test(`@Web Client App login - ${data.productName}`, async ({ page }) => {
@@ -20,7 +22,11 @@ for (const data of dataset) {
     await cartPage.checkout();
 
     // Homework. Fill out the Credit Card information
-    const orderId = await checkoutPage.placeOrder(data.paymentInfo, data.country, data.username);
+    const orderId = await checkoutPage.placeOrder(
+      data.paymentInfo,
+      data.country,
+      data.username,
+    );
     console.log(orderId);
 
     // Homework: Navigate to the Orders tab, find the order and click on View
@@ -38,7 +44,10 @@ customtest("Custom Client App login", async ({ page, testDataForOrder }) => {
   const cartPage = pom.getCartPage();
 
   await loginPage.goTo();
-  await loginPage.validLogin(testDataForOrder.username, testDataForOrder.password);
+  await loginPage.validLogin(
+    testDataForOrder.username,
+    testDataForOrder.password,
+  );
   await dashboardPage.addProductToCart(testDataForOrder.productName);
   await dashboardPage.navigateToCart();
   await cartPage.validateProductAddedToCart(testDataForOrder.productName);

@@ -1,5 +1,14 @@
 import { expect, Page, Locator } from "@playwright/test";
 
+export type PaymentInfo = {
+  cardNumber: string;
+  expiryMonth: string;
+  expiryYear: string;
+  cvvCode: string;
+  cardHolder: string;
+  couponCode: string;
+};
+
 export class CheckoutPage {
   page: Page;
   cardNumber: Locator;
@@ -22,9 +31,18 @@ export class CheckoutPage {
     this.cardNumber = this.page.locator('input[type="text"]').first();
     this.expiryMonth = this.page.getByRole("combobox").first();
     this.expiryYear = this.page.getByRole("combobox").nth(1);
-    this.cvvCode = this.page.locator(".field").filter({ hasText: "CVV Code" }).getByRole("textbox");
-    this.cardHolder = this.page.locator(".field").filter({ hasText: "Name on Card" }).getByRole("textbox");
-    this.couponCode = this.page.locator(".field").filter({ hasText: "Apply Coupon" }).getByRole("textbox");
+    this.cvvCode = this.page
+      .locator(".field")
+      .filter({ hasText: "CVV Code" })
+      .getByRole("textbox");
+    this.cardHolder = this.page
+      .locator(".field")
+      .filter({ hasText: "Name on Card" })
+      .getByRole("textbox");
+    this.couponCode = this.page
+      .locator(".field")
+      .filter({ hasText: "Apply Coupon" })
+      .getByRole("textbox");
     this.applyCoupon = this.page.getByRole("button", { name: "Apply Coupon" });
     this.invalidCouponText = this.page.getByText("* Invalid Coupon");
     this.countrySelector = this.page.getByPlaceholder("Select Country");
@@ -35,7 +53,7 @@ export class CheckoutPage {
     this.orderId = this.page.locator(".em-spacer-1 .ng-star-inserted");
   }
 
-  async fillCardInfo(paymentInfo: any) {
+  async fillCardInfo(paymentInfo: PaymentInfo) {
     await this.cardNumber.fill(paymentInfo.cardNumber);
     await this.expiryMonth.selectOption(paymentInfo.expiryMonth);
     await this.expiryYear.selectOption(paymentInfo.expiryYear);
@@ -52,7 +70,10 @@ export class CheckoutPage {
     await this.dropdown.waitFor();
     const optionsCount: number = await this.dropdown.locator("button").count();
     for (let i: number = 0; i < optionsCount; i++) {
-      const currentOption: string | null = await this.dropdown.locator("button").nth(i).textContent();
+      const currentOption: string | null = await this.dropdown
+        .locator("button")
+        .nth(i)
+        .textContent();
       console.log(currentOption);
       if (currentOption?.trim() === "India") {
         await this.dropdown.locator("button").nth(i).click();
@@ -65,7 +86,11 @@ export class CheckoutPage {
     await expect(this.username).toHaveText(username);
   }
 
-  async placeOrder(paymentInfo: any, country: string, username: string): Promise<string> {
+  async placeOrder(
+    paymentInfo: PaymentInfo,
+    country: string,
+    username: string,
+  ): Promise<string> {
     await this.fillCardInfo(paymentInfo);
     await this.selectCountry(country);
     await this.validateLoggedUser(username);

@@ -1,8 +1,13 @@
 import { test, expect } from "@playwright/test";
 import { APIUtils } from "../utils_ts/APIUtils";
-const loginPayload = { userEmail: "anshika@gmail.com", userPassword: "Iamking@000" };
-const orderPayload = { orders: [{ country: "Brazil", productOrderedId: "6581ca979fd99c85e8ee7faf" }] };
-let response;
+const loginPayload = {
+  userEmail: "gqwewhdonyuqovmqud@ytnhy.com",
+  userPassword: "Iamking@000",
+};
+const orderPayload = {
+  orders: [{ country: "Brazil", productOrderedId: "6581ca979fd99c85e8ee7faf" }],
+};
+let response: { token: string; orderId: string };
 
 test.beforeAll(async ({ request }) => {
   const apiUtils = new APIUtils(request, loginPayload);
@@ -18,7 +23,11 @@ test("@API Client App login", async ({ page }) => {
 
   // Homework: Navigate to the Orders tab, find the order and click on View
   await page.getByRole("button", { name: "Orders" }).click();
-  await page.locator("tr").filter({ hasText: response.orderId }).getByRole("button", { name: "View" }).click();
+  await page
+    .locator("tr")
+    .filter({ hasText: response.orderId })
+    .getByRole("button", { name: "View" })
+    .click();
   await expect(page.getByText(`Order Id${response.orderId}`)).toBeVisible();
   await expect(page.getByText("Country - Brazil").first()).toBeVisible();
 });
