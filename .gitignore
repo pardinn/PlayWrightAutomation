@@ -7,3 +7,4 @@ playwright-report/
 allure-results/
 allure-report/
 test-data/
+**/cucumber-report.html
