@@ -1,7 +1,8 @@
 import { expect } from "@playwright/test";
 import { Given, When, Then } from "@cucumber/cucumber";
-import dataSet from "../../utils/placeOrderTestData.json" assert { type: "json" };
-const data = JSON.parse(JSON.stringify(dataSet))[0];
+import fs from "fs";
+const testData = fs.readFileSync("./utils/placeOrderTestData.json", "utf8");
+const data = JSON.parse(testData)[0];
 
 Given(
   "I log into the Ecommerce application with {string} and {string}",
@@ -48,7 +49,9 @@ Then("I verify the order is present in the OrderHistory", async function () {
 
   this.ordersHistoryPage = this.pom.getOrdersHistoryPage();
   this.ordersHistoryPage.viewOrder(this.orderId);
-  await expect(this.ordersHistoryPage.getOrderId()).toContainText(this.orderId);
+  await expect(await this.ordersHistoryPage.getOrderId()).toContainText(
+    this.orderId,
+  );
 });
 
 Given(
