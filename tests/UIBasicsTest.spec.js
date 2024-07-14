@@ -8,7 +8,7 @@ test("@Web Browser Context Playwright test", async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();
   //aborting calls demonstration
-  page.route("**/*.{jpg,png,jpeg}", (route) => route.abort());
+  await page.route("**/*.{png,jpg,jpeg}", (route) => route.abort());
   const userName = page.getByLabel("Username:");
   const signIn = page.getByRole("button", { name: "Sign In" });
   const cardTitles = page.locator(".card-body a");

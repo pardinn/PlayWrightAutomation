@@ -33,7 +33,7 @@ for (const data of dataset) {
     await dashboardPage.navigateToOrders();
 
     await ordersHistoryPage.viewOrder(orderId);
-    expect(await ordersHistoryPage.getOrderId()).toContainText(orderId);
+    await expect(await ordersHistoryPage.getOrderId()).toContainText(orderId);
   });
 }
 
