@@ -6,9 +6,18 @@ export class CheckoutPage {
     this.cardNumber = this.page.locator('input[type="text"]').first();
     this.expiryMonth = this.page.getByRole("combobox").first();
     this.expiryYear = this.page.getByRole("combobox").nth(1);
-    this.cvvCode = this.page.locator(".field").filter({ hasText: "CVV Code" }).getByRole("textbox");
-    this.cardHolder = this.page.locator(".field").filter({ hasText: "Name on Card" }).getByRole("textbox");
-    this.couponCode = this.page.locator(".field").filter({ hasText: "Apply Coupon" }).getByRole("textbox");
+    this.cvvCode = this.page
+      .locator(".field")
+      .filter({ hasText: "CVV Code" })
+      .getByRole("textbox");
+    this.cardHolder = this.page
+      .locator(".field")
+      .filter({ hasText: "Name on Card" })
+      .getByRole("textbox");
+    this.couponCode = this.page
+      .locator(".field")
+      .filter({ hasText: "Apply Coupon" })
+      .getByRole("textbox");
     this.applyCoupon = this.page.getByRole("button", { name: "Apply Coupon" });
     this.invalidCouponText = this.page.getByText("* Invalid Coupon");
     this.countrySelector = this.page.getByPlaceholder("Select Country");
@@ -36,9 +45,12 @@ export class CheckoutPage {
     await this.dropdown.waitFor();
     const optionsCount = await this.dropdown.locator("button").count();
     for (let i = 0; i < optionsCount; i++) {
-      const currentOption = await this.dropdown.locator("button").nth(i).textContent();
+      const currentOption = await this.dropdown
+        .locator("button")
+        .nth(i)
+        .textContent();
       console.log(currentOption);
-      if (currentOption.trim() === "India") {
+      if (currentOption.trim() === country) {
         await this.dropdown.locator("button").nth(i).click();
         break;
       }

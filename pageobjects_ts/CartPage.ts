@@ -1,9 +1,9 @@
 import { expect, Page, Locator } from "@playwright/test";
 
 export class CartPage {
-  page: Page;
-  cartList: Locator;
-  checkoutButton: Locator;
+  private readonly page: Page;
+  private readonly cartList: Locator;
+  private readonly checkoutButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -11,16 +11,16 @@ export class CartPage {
     this.checkoutButton = this.page.getByRole("button", { name: "Checkout" });
   }
 
-  async validateProductAddedToCart(productName: string) {
+  async validateProductAddedToCart(productName: string): Promise<void> {
     await this.cartList.first().waitFor();
     await expect(this.getProductLocator(productName)).toBeVisible();
   }
 
-  getProductLocator(productName: string) {
+  private getProductLocator(productName: string): Locator {
     return this.page.locator(`h3:has-text('${productName}')`);
   }
 
-  async checkout() {
+  async checkout(): Promise<void> {
     await this.checkoutButton.click();
   }
 }

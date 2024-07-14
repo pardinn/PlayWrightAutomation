@@ -1,11 +1,11 @@
 import { Page, Locator } from "@playwright/test";
 
 export class DashboardPage {
-  page: Page;
-  products: Locator;
-  productsText: Locator;
-  cart: Locator;
-  orders: Locator;
+  private readonly page: Page;
+  private readonly products: Locator;
+  private readonly productsText: Locator;
+  private readonly cart: Locator;
+  private readonly orders: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -15,24 +15,24 @@ export class DashboardPage {
     this.orders = this.page.getByRole("button", { name: "Orders" });
   }
 
-  async addProductToCart(productName: string) {
+  async addProductToCart(productName: string): Promise<void> {
     await this.products.first().waitFor();
-    const titles: string[] = await this.productsText.allTextContents();
+    const titles = await this.productsText.allTextContents();
     console.log(titles);
-    const count: number = await this.products.count();
-    for (let i: number = 0; i < count; i++) {
-      if ((await this.products.nth(i).locator("b").textContent()) === productName) {
-        await this.products.nth(i).getByRole("button", { name: "Add To Cart" }).click();
+    for (const product of await this.products.all()) {
+      const title = await product.locator("b").textContent();
+      if (title === productName) {
+        await product.getByRole("button", { name: "Add To Cart" }).click();
         break;
       }
     }
   }
 
-  async navigateToCart() {
+  async navigateToCart(): Promise<void> {
     await this.cart.click();
   }
 
-  async navigateToOrders() {
+  async navigateToOrders(): Promise<void> {
     await this.orders.click();
   }
 }

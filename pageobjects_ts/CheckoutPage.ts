@@ -1,30 +1,30 @@
 import { expect, Page, Locator } from "@playwright/test";
 
-export type PaymentInfo = {
+export interface PaymentInfo {
   cardNumber: string;
   expiryMonth: string;
   expiryYear: string;
   cvvCode: string;
   cardHolder: string;
   couponCode: string;
-};
+}
 
 export class CheckoutPage {
-  page: Page;
-  cardNumber: Locator;
-  expiryMonth: Locator;
-  expiryYear: Locator;
-  cvvCode: Locator;
-  cardHolder: Locator;
-  couponCode: Locator;
-  applyCoupon: Locator;
-  invalidCouponText: Locator;
-  countrySelector: Locator;
-  dropdown: Locator;
-  username: Locator;
-  placeOrderButton: Locator;
-  thankYouMessage: Locator;
-  orderId: Locator;
+  private readonly page: Page;
+  private readonly cardNumber: Locator;
+  private readonly expiryMonth: Locator;
+  private readonly expiryYear: Locator;
+  private readonly cvvCode: Locator;
+  private readonly cardHolder: Locator;
+  private readonly couponCode: Locator;
+  private readonly applyCoupon: Locator;
+  private readonly invalidCouponText: Locator;
+  private readonly countrySelector: Locator;
+  private readonly dropdown: Locator;
+  private readonly username: Locator;
+  private readonly placeOrderButton: Locator;
+  private readonly thankYouMessage: Locator;
+  private readonly orderId: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -53,7 +53,7 @@ export class CheckoutPage {
     this.orderId = this.page.locator(".em-spacer-1 .ng-star-inserted");
   }
 
-  async fillCardInfo(paymentInfo: PaymentInfo) {
+  async fillCardInfo(paymentInfo: PaymentInfo): Promise<void> {
     await this.cardNumber.fill(paymentInfo.cardNumber);
     await this.expiryMonth.selectOption(paymentInfo.expiryMonth);
     await this.expiryYear.selectOption(paymentInfo.expiryYear);
@@ -64,7 +64,7 @@ export class CheckoutPage {
     await expect(this.invalidCouponText).toBeVisible();
   }
 
-  async selectCountry(country: string) {
+  async selectCountry(country: string): Promise<void> {
     const subCountry: string = country.slice(0, 3);
     await this.countrySelector.pressSequentially(subCountry);
     await this.dropdown.waitFor();
@@ -75,14 +75,14 @@ export class CheckoutPage {
         .nth(i)
         .textContent();
       console.log(currentOption);
-      if (currentOption?.trim() === "India") {
+      if (currentOption?.trim() === country) {
         await this.dropdown.locator("button").nth(i).click();
         break;
       }
     }
   }
 
-  async validateLoggedUser(username: string) {
+  async validateLoggedUser(username: string): Promise<void> {
     await expect(this.username).toHaveText(username);
   }
 
@@ -99,8 +99,8 @@ export class CheckoutPage {
     return this.getOrderId();
   }
 
-  async getOrderId(): Promise<string> {
-    const orderId: string | null = await this.orderId.textContent();
+  private async getOrderId(): Promise<string> {
+    const orderId = await this.orderId.textContent();
     return orderId?.split("|")[1].trim() ?? "Failed to locate the order id";
   }
 }
