@@ -6,10 +6,12 @@
   "main": "index.js",
   "scripts": {
     "regression": "npx playwright test",
-    "webTests": "npx playwright test --grep @Web",
-    "APITests": "npx playwright test --grep @API",
-    "SafariCustomConfig": "npx playwright test --config playwright.config1.js --project=safari",
-    "CucumberRegression": "npx cucumber-js --tags '@Regression' --retry 1 --exit --format html:cucumber-report.html",
+    "web-tests": "npx playwright test --grep @Web",
+    "api-ests": "npx playwright test --grep @API",
+    "failed-tests": "npx playwright test --last-failed",
+    "flakyness-check": "npx playwright test --repeat-each 10 --workers 6",
+    "safari-custom-config": "npx playwright test --config playwright.config1.js --project=safari",
+    "cucumber-regression": "npx cucumber-js --tags '@Regression' --retry 1 --exit --format html:cucumber-report.html",
     "prepare": "husky",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix"
