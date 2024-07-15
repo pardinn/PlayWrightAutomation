@@ -7,12 +7,12 @@ import { CheckoutPage } from "./CheckoutPage";
 import { OrdersHistoryPage } from "./OrdersHistoryPage";
 
 export class POManager {
-  page: Page;
-  loginPage: LoginPage;
-  dashboardPage: DashboardPage;
-  cartPage: CartPage;
-  checkoutPage: CheckoutPage;
-  ordersHistoryPage: OrdersHistoryPage;
+  private readonly page: Page;
+  private readonly loginPage: LoginPage;
+  private readonly dashboardPage: DashboardPage;
+  private readonly cartPage: CartPage;
+  private readonly checkoutPage: CheckoutPage;
+  private readonly ordersHistoryPage: OrdersHistoryPage;
 
   constructor(page: Page) {
     this.page = page;
@@ -22,7 +22,7 @@ export class POManager {
     this.checkoutPage = new CheckoutPage(this.page);
     this.ordersHistoryPage = new OrdersHistoryPage(this.page);
   }
-  //create getters for each variable in the constructor
+
   getLoginPage(): LoginPage {
     return this.loginPage;
   }

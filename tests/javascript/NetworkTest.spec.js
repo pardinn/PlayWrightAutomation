@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import APIUtils from "../utils/APIUtils";
+import APIUtils from "../../utils/APIUtils";
 const loginPayload = {
   userEmail: "gqwewhdonyuqovmqud@ytnhy.com",
   userPassword: "Iamking@000",

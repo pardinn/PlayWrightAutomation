@@ -1,17 +1,19 @@
 import { test as base } from "@playwright/test";
 
+interface PaymentInfo {
+  cardNumber: string;
+  expiryMonth: string;
+  expiryYear: string;
+  cvvCode: string;
+  cardHolder: string;
+  couponCode: string;
+}
+
 interface TestDataForOrder {
   username: string;
   password: string;
   productName: string;
-  paymentInfo: {
-    cardNumber: string;
-    expiryMonth: string;
-    expiryYear: string;
-    cvvCode: string;
-    cardHolder: string;
-    couponCode: string;
-  };
+  paymentInfo: PaymentInfo;
   country: string;
 }
 

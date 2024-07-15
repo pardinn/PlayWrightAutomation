@@ -20,9 +20,17 @@ export async function writeExcel(
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.readFile(filePath);
   const worksheet = workbook.getWorksheet("Sheet1");
-  const output = await readExcel(worksheet!, searchText);
 
-  const cellToReplace = worksheet!.getCell(
+  if (!worksheet) {
+    throw new Error("Worksheet 'Sheet 1' not found");
+  }
+
+  const output = await findCell(worksheet!, searchText);
+  if (output.row === -1 || output.column === -1) {
+    throw new Error(`Text "${searchText}" not found in worksheet`);
+  }
+
+  const cellToReplace = worksheet.getCell(
     output.row + cellDelta.row,
     output.column + cellDelta.column,
   );
@@ -35,11 +43,9 @@ export async function writeExcel(
  *
  * @param {ExcelJS.Worksheet} worksheet - The worksheet to read from.
  * @param {string} searchText - The text to search for in the worksheet.
- * @returns {Promise<Object>} A promise that resolves to an object containing the row and column of the found text.
- * @returns {number} output.row - The row number of the found text.
- * @returns {number} output.column - The column number of the found text.
+ * @returns {Promise<{ row:number; column: number }>} A promise that resolves to an object containing the row and column of the found text.
  */
-async function readExcel(
+async function findCell(
   worksheet: ExcelJS.Worksheet,
   searchText: string,
 ): Promise<{ row: number; column: number }> {

@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { test as customtest } from "../utils_ts/base-test";
-import { POManager } from "../pageobjects_ts/POManager";
+import { test as customtest } from "../../utils_ts/base-test";
+import { POManager } from "../../pageobjects_ts/POManager";
 import fs from "fs";
 const testData = fs.readFileSync("./utils/placeOrderTestData.json", "utf8");
 const dataset = JSON.parse(testData);
@@ -33,7 +33,7 @@ for (const data of dataset) {
     await dashboardPage.navigateToOrders();
 
     await ordersHistoryPage.viewOrder(orderId);
-    expect(await ordersHistoryPage.getOrderId()).toContainText(orderId);
+    await expect(await ordersHistoryPage.getOrderId()).toContainText(orderId);
   });
 }
 

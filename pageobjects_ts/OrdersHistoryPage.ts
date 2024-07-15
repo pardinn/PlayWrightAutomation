@@ -1,9 +1,9 @@
 import { Page, Locator } from "@playwright/test";
 
 export class OrdersHistoryPage {
-  page: Page;
-  ordersHistory: Locator;
-  orderId: Locator;
+  private readonly page: Page;
+  private readonly ordersHistory: Locator;
+  private readonly orderId: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -11,17 +11,17 @@ export class OrdersHistoryPage {
     this.orderId = this.page.getByText(/Order Id./);
   }
 
-  async viewOrder(orderId: string) {
-    const order: Locator = await this.findOrderById(orderId!);
+  async viewOrder(orderId: string): Promise<void> {
+    const order = await this.findOrderById(orderId!);
     await order.getByRole("button", { name: "View" }).click();
   }
 
-  async findOrderById(orderId: string): Promise<Locator> {
-    return await this.ordersHistory.filter({ hasText: orderId });
+  private async findOrderById(orderId: string): Promise<Locator> {
+    return this.ordersHistory.filter({ hasText: orderId });
   }
 
   async getOrderId(): Promise<Locator> {
     await this.page.getByText("Order Summary").waitFor();
-    return await this.orderId;
+    return this.orderId;
   }
 }
