@@ -1,10 +1,9 @@
 import { test, expect } from "@playwright/test";
-import writeExcel from "../utils/ExcelUtils";
-import { faker } from "@faker-js/faker";
+import { writeExcel } from "../../utils_ts/ExcelUtils";
 
 test("Download / Upload excel validation", async ({ page }) => {
   const fruitName = "Mango";
-  const newPrice = faker.number.int({ max: 999 });
+  const newPrice = 350;
 
   await page.goto("https://rahulshettyacademy.com/upload-download-test/");
   // Start waiting for download before clicking. Note no await.
@@ -16,7 +15,7 @@ test("Download / Upload excel validation", async ({ page }) => {
   await download.saveAs("test-data/" + download.suggestedFilename());
 
   // Modify the file
-  writeExcel(
+  await writeExcel(
     fruitName,
     newPrice,
     { row: 0, column: 2 },
@@ -28,5 +27,5 @@ test("Download / Upload excel validation", async ({ page }) => {
 
   const desiredRow = page.getByRole("row").filter({ hasText: fruitName });
   const price = desiredRow.locator("#cell-4-undefined");
-  await expect(price).toHaveText(String(newPrice));
+  await expect(price).toHaveText("350");
 });
