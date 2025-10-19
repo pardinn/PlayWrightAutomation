@@ -5,7 +5,8 @@ const loginPayload = {
   userPassword: "Iamking@000",
 };
 const orderPayload = {
-  orders: [{ country: "Brazil", productOrderedId: "6581ca979fd99c85e8ee7faf" }],
+  // ID for ADIDAS ORIGINAL
+  orders: [{ country: "Brazil", productOrderedId: "68a961719320a140fe1ca57c" }],
 };
 let response: { token: string; orderId: string };
 
