@@ -18,20 +18,29 @@ test.skip("Popup validations", async ({ page }) => {
 
   const framesPage = page.frameLocator("#courses-iframe");
   await framesPage.locator("li a[href*='lifetime-access']:visible").click();
-  const textCheck = await framesPage.getByRole("heading", { name: "Happy Subscibers" }).textContent();
+  const textCheck = await framesPage
+    .getByRole("heading", { name: "Happy Subscibers" })
+    .textContent();
   console.log(textCheck.split(" ")[1]);
 });
 
 test("@Web Screenshot & Visual comparison", async ({ page }) => {
   await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
   await expect(page.getByPlaceholder("Hide/Show Example")).toBeVisible();
-  await page.getByPlaceholder("Hide/Show Example").screenshot({ path: "test-results/elementScreenshot.png" });
+  await page
+    .getByPlaceholder("Hide/Show Example")
+    .screenshot({ path: "test-results/elementScreenshot.png" });
   await page.getByRole("button", { name: "Hide" }).click();
-  await page.screenshot({ path: "test-results/screenshot.png", fullPage: true });
+  await page.screenshot({
+    path: "test-results/screenshot.png",
+    fullPage: true,
+  });
   await expect(page.getByPlaceholder("Hide/Show Example")).toBeHidden();
 });
 
-test.fixme("Visual testing", async ({ page }) => {
+test.fixme("Visual testing - Flaky", async ({ page }) => {
   await page.goto("https://google.com/");
-  expect(await page.screenshot()).toMatchSnapshot("landing.png");
+  await expect(page).toHaveScreenshot("landing.png", {
+    animations: "disabled",
+  });
 });
