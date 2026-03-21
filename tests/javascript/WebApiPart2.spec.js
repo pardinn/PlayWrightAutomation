@@ -93,6 +93,7 @@ test("@API Client App login", async () => {
   );
   let orderId = await page
     .locator(".em-spacer-1 .ng-star-inserted")
+    .first()
     .textContent();
   orderId = orderId.split("|")[1].trim();
   console.log(orderId);
