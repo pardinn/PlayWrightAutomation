@@ -35,8 +35,15 @@ export class APIUtils {
    * @returns {Promise<Array>} Array of product objects.
    */
   async getAllProducts() {
-    const productsResponse = await this.request.get(
+    const token = await this.getToken();
+    const productsResponse = await this.request.post(
       "https://rahulshettyacademy.com/api/ecom/product/get-all-products",
+      {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      },
     );
     const productsResponseJson = await productsResponse.json();
     console.log("Products fetched:", productsResponseJson.data.length);

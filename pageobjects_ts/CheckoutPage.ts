@@ -50,7 +50,7 @@ export class CheckoutPage {
     this.username = this.page.locator(".user__name [type='text']").first();
     this.placeOrderButton = this.page.getByText("Place Order");
     this.thankYouMessage = this.page.locator(".hero-primary");
-    this.orderId = this.page.locator(".em-spacer-1 .ng-star-inserted");
+    this.orderId = this.page.locator(".em-spacer-1 .ng-star-inserted").first();
   }
 
   async fillCardInfo(paymentInfo: PaymentInfo): Promise<void> {

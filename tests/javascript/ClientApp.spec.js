@@ -18,7 +18,7 @@ test("Client App login", async ({ page }) => {
   for (let i = 0; i < count; i++) {
     if ((await products.nth(i).locator("b").textContent()) === productName) {
       await products
-        .nth(1)
+        .nth(i)
         .getByRole("Button", { name: "Add To Cart" })
         .click();
       break;
