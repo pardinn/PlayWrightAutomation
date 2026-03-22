@@ -31,6 +31,44 @@ export class APIUtils {
   }
 
   /**
+   * Fetches all available products from the API.
+   * @returns {Promise<Array>} Array of product objects.
+   */
+  async getAllProducts() {
+    const token = await this.getToken();
+    const productsResponse = await this.request.post(
+      "https://rahulshettyacademy.com/api/ecom/product/get-all-products",
+      {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      },
+    );
+    const productsResponseJson = await productsResponse.json();
+    console.log("Products fetched:", productsResponseJson.data.length);
+    return productsResponseJson.data;
+  }
+
+  /**
+   * Gets product ID by product name.
+   * @param {string} productName - The name of the product to find.
+   * @returns {Promise<string>} The product ID.
+   * @throws {Error} If product not found.
+   */
+  async getProductId(productName) {
+    const products = await this.getAllProducts();
+    const product = products.find((p) => p.productName === productName);
+    if (!product) {
+      throw new Error(
+        `Product "${productName}" not found. Available products: ${products.map((p) => p.productName).join(", ")}`,
+      );
+    }
+    console.log(`Product ID for "${productName}": ${product._id}`);
+    return product._id;
+  }
+
+  /**
    * Creates an order.
    * @param {Object} orderPayload - The payload for creating an order.
    * @returns {Promise<Object>} The response containing the token and order ID.

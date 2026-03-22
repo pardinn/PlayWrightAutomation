@@ -4,14 +4,16 @@ const loginPayload = {
   userEmail: "gqwewhdonyuqovmqud@ytnhy.com",
   userPassword: "Iamking@000",
 };
-const orderPayload = {
-  // ID for ADIDAS ORIGINAL
-  orders: [{ country: "Brazil", productOrderedId: "68a961719320a140fe1ca57c" }],
-};
 let response: { token: string; orderId: string };
+let productId: string;
 
 test.beforeAll(async ({ request }) => {
   const apiUtils = new APIUtils(request, loginPayload);
+  // Dynamically fetch the product ID instead of hardcoding it
+  productId = await apiUtils.getProductId("ADIDAS ORIGINAL");
+  const orderPayload = {
+    orders: [{ country: "Brazil", productOrderedId: productId }],
+  };
   response = await apiUtils.createOrder(orderPayload);
 });
 

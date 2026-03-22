@@ -20,7 +20,7 @@ test("@Web Browser Context Playwright test", async ({ browser }) => {
   console.log(await page.title());
 
   await userName.fill("rahulshetty");
-  await page.getByLabel("Password:").fill("learning");
+  await page.getByLabel("Password:").fill("Learning@830$3mK2");
   await signIn.click();
   console.log(await page.locator("[style*='block']").textContent());
   await expect(page.locator("[style*='block']")).toContainText("Incorrect");

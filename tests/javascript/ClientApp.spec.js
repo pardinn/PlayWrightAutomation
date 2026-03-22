@@ -18,7 +18,7 @@ test("Client App login", async ({ page }) => {
   for (let i = 0; i < count; i++) {
     if ((await products.nth(i).locator("b").textContent()) === productName) {
       await products
-        .nth(1)
+        .nth(i)
         .getByRole("Button", { name: "Add To Cart" })
         .click();
       break;
@@ -78,6 +78,7 @@ test("Client App login", async ({ page }) => {
   );
   let orderId = await page
     .locator(".em-spacer-1 .ng-star-inserted")
+    .first()
     .textContent();
   orderId = orderId.split("|")[1].trim();
   console.log(orderId);
